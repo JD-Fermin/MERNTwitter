@@ -1,4 +1,4 @@
-const { response } = require("express");
+// const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const User = require('../../models/User');
@@ -7,6 +7,11 @@ const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login')
+const passport = require('passport');
+
+router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.json({msg: 'Success'});
+})
 
 router.get("/test", (req, res) => {
   res.json({ msg: "this is the users route" })
